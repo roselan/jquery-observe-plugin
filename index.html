@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jquery-observe-plugin : jquery simple MutationObserver plugin" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jquery-observe-plugin</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/roselan/jquery-observe-plugin">View on GitHub</a>
+
+          <h1 id="project_title">Jquery-observe-plugin</h1>
+          <h2 id="project_tagline">jquery simple MutationObserver plugin</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/roselan/jquery-observe-plugin/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/roselan/jquery-observe-plugin/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>The new <a href="https://developer.mozilla.org/en/DOM/DOM_Mutation_Observers">MutationObserver</a> thingy is implemented in current versions of FF and Chrome. It nicely replaces the DomSubTreeModified event... with some quirks.</p>
+
+<p>This plugin aims to simplify and streamline the "listening", I mean observing, of mutations.</p>
+
+<h3>plugin usage:</h3>
+
+<blockquote>
+<p><code>$('div').observe( function (mutations) { console.log(this, mutations); }).addClass('yatta').append('&lt;span&gt;genki desu&lt;/span&gt;');</code></p>
+</blockquote>
+
+<p>In this particular example, the callback will be fired when the span is appended, <em>not</em> when the class is added. MutationRecord groups changes which occur over a short span of time. So it will not fire until all changes are made, and the final element state is reached.</p>
+
+<ul>
+<li>"this" represents individual DOM elements, exactly like in <a href="http://api.jquery.com/each/">$.each()</a>. </li>
+<li>"mutations" is an array of MutationRecords. In short, it's a list of changes, but it only records new "NodeLists" types changes in current implementations of MutationObserver. </li>
+</ul><p>In order to limit observed "events", 3 options for the observer are present: attributes, childList and characterData, usage:</p>
+
+<blockquote>
+<p><code>$('div')observe( function () { console.log(this); }, {childList: false} ).addClass('yata');</code></p>
+</blockquote>
+
+<p>MutationRecord isn't yet complete, and this plugin, even if limited in it's scope, increases MutationRecord utility. It's most useful with $.clone(). You can trace document versions, and it can help for debugging. But you can too clone <em>windows</em> in real time, even on different computers with a bit of ajaxing and server forwarding! This is extremely promising: web apps might be able to provide efficient real time <em>pure</em> html "remote desktop" support. As well, it provides userscripts writers who have to look up for ajax DOM updates with a more elegant method than setTimeout check loops.</p>
+
+<p>Still lots to do...
+A "state" shall be added in order to able to destroy/disconnect observers, even if overloading an element with observers scales extraordinarily well. Maybe some kind of "container" can be added too, as the $.on() ( $('table').observeChidldren('td', callback); ), which should loop MutationRecord to select only records affecting children.</p>
+
+<p>You can check <strong><a href="http://jsfiddle.net/E7Kn2/5/">this fiddle</a></strong> for a live demo (and copy the plugin for your needs until I find a way to git it )</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jquery-observe-plugin maintained by <a href="https://github.com/roselan">roselan</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
